@@ -4,14 +4,16 @@
   "description": "Learn how to build, deploy, and test a NFT marketplace from scratch on Ethereum.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write 'contracts/**/*.sol'",
+    "lint": "prettier --list-different 'contracts/**/*.sol'"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/junibrosas/nft_marketplate.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Juni Brosas",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/junibrosas/nft_marketplate/issues"
@@ -25,5 +27,9 @@
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.7.2",
     "hardhat": "^2.12.4"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.0",
+    "dotenv": "^16.0.3"
   }
 }
