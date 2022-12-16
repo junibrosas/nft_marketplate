@@ -166,9 +166,7 @@ contract NFTMarketplace is ERC721URIStorage {
 
   /**
    * Functionality to resell and cancel market items.
-   * You are re-listing the NFT so you have to pay the listing price again.
-   * UserStory: The user should be able to retrieve all the NFTs listed by them.
-   * @return items An array of market items listed by the user.
+   * UserStory: The user should be able to resell their NFTs to the marketplace.
    */
   function resellToken(uint256 tokenId, uint256 price) public payable {
     require(idToMarketItem[tokenId].owner == msg.sender, "You are not the owner of this token");
