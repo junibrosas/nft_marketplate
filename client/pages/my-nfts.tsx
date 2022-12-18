@@ -53,11 +53,11 @@ function MyNFTs() {
   }
 
   if (loadingState == 'not-loaded') return (
-    <h1 className="px-20 py-30 text-3xl">Wait loading...</h1>
+    <h1 className="text-3xl">Wait loading...</h1>
   )
 
   if (loadingState == 'loaded' && !nfts.length) return (
-    <h1 className="px-20 py-30 text-3xl">No items in marketplace</h1>
+    <h1 className="text-3xl">No items in marketplace</h1>
   )
 
   return (

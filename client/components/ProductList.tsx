@@ -9,7 +9,7 @@ interface Props {
 export default function ProductList({ products, onBuyNFT, labelCTABtn = 'Buy now' }: Props) {
   if (!products || !products.length) {
     return (
-      <h1 className="px-20 py-10 text-3xl">No items in the marketplace</h1>
+      <h1 className="text-3xl">No items in the marketplace</h1>
     )
   }
 

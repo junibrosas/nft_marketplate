@@ -67,13 +67,13 @@ export default function Home() {
 
   if (loadingState == 'not-loaded') {
     return (
-      <h1 className="px-20 py-10 text-3xl">Loading...</h1>
+      <h1 className="text-3xl">Loading...</h1>
     )
   }
 
   if (loadingState == 'loaded' && !nfts.length) {
     return (
-      <h1 className="px-20 py-10 text-3xl">No items in the marketplace</h1>
+      <h1 className="text-3xl">No items in the marketplace</h1>
     )
   }
 

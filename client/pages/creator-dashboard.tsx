@@ -71,10 +71,10 @@ export default function CreatorDashboard() {
   }
 
   if (loadingState == "not-loaded")
-    return <h1 className="px-20 py-10 text-3xl">Wait Loading.......</h1>;
+    return <h1 className="text-3xl">Wait Loading.......</h1>;
 
   if (loadingState == "loaded" && !nfts.length)
-    return <h1 className="px-20 py-10 text-3xl">No NFTs listed by you</h1>;
+    return <h1 className="text-3xl">No NFTs listed by you</h1>;
 
   return (
     <div className="flex justify-center">
