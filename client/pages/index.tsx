@@ -21,16 +21,17 @@ export default function Home() {
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await marketContract.tokenURI(i.tokenId);
       const meta = await axios.get(tokenUri);
-      let price = ethers.utils.formatUtils(i.price.toString(), 'ether');
+      let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
 
       let item = {
         price,
         tokenId: i.tokenId.toNumber(),
         seller: i.seller,
         owner: i.owner,
-        image: meta.data.name,
+        name: meta.data.name,
+        image: meta.data.image,
         description: meta.data.description
-      }
+      };
 
       return item;
     }));
@@ -43,7 +44,7 @@ export default function Home() {
     loadNFTs();
   }, []);
 
-  async function buyNFT(nft) {
+  async function buyNFT(nft: any) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -78,11 +79,7 @@ export default function Home() {
 
   return (
     <div className="flex justify-center">
-      <div className="px-4" style={{ maxWidth: '1600px' }}>
-
-      </div>
-      <h1>Welcome to Home!</h1>
-      <ProductList />
+      <ProductList products={nfts} onBuyNFT={buyNFT} />
     </div>
   )
 }
