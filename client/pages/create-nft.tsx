@@ -8,7 +8,7 @@ import NFTMarketplace from '../abi/NFTMarketplace.json';
 import axios from 'axios';
 
 export default function CreateNFT() {
-  const [fileUrl, setFileUrl] = useState(null);
+  const [fileUrl, setFileUrl] = useState<string>('');
   const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' });
   const router = useRouter();
   const [loadingState, setLoadingState] = useState('not-loading');
@@ -16,7 +16,6 @@ export default function CreateNFT() {
   // Upload image to IPFS
   async function imageUpload(e: any) {
     const file = e.target.files[0];
-    console.warn('file', file);
 
     try {
       const formData = new FormData();
