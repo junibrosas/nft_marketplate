@@ -68,8 +68,8 @@ export default function CreateNFT() {
       });
 
       const tokenURI = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-      return tokenURI;
 
+      return tokenURI;
     } catch (error) {
       console.log("Error uploading file :", error);
     }
