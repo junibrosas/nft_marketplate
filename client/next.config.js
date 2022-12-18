@@ -22,6 +22,7 @@ const nextConfig = {
   env: {
     PINATA_KEY: process.env.PINATA_KEY,
     PINATA_SECRET: process.env.PINATA_SECRET,
+    PINATA_GATEWAY: process.env.PINATA_GATEWAY,
   },
   async headers() {
     return [

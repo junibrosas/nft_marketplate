@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useRouter } from 'next/router';
 import Web3Modal from 'web3modal';
-import { contractAddress, PINATA_KEY, PINATA_SECRET } from '../config';
+import { contractAddress } from '../config';
 
 import NFTMarketplace from '../abi/NFTMarketplace.json';
 import axios from 'axios';
@@ -12,8 +12,6 @@ export default function CreateNFT() {
   const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' });
   const router = useRouter();
   const [loadingState, setLoadingState] = useState('not-loading');
-  console.log(PINATA_KEY);
-  console.log(PINATA_SECRET);
 
   // Upload image to IPFS
   async function imageUpload(e: any) {
@@ -27,13 +25,13 @@ export default function CreateNFT() {
         url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
         data: formData,
         headers: {
-          'pinata_api_key': PINATA_KEY,
-          'pinata_secret_api_key': PINATA_SECRET,
+          'pinata_api_key': process.env.PINATA_KEY,
+          'pinata_secret_api_key': process.env.PINATA_SECRET,
           'Content-Type': 'multipart/form-data'
         }
       });
 
-      const imageURL = 'http://gateway.pinata.cloud/ipfs/' + resFile.data.IpfsHash;
+      const imageURL = `${process.env.PINATA_GATEWAY}/ipfs/${resFile.data.IpfsHash}`;
       setFileUrl(imageURL);
     } catch (e) {
       console.log('Error: ', e);
@@ -61,13 +59,13 @@ export default function CreateNFT() {
         url: "https://api.pinata.cloud/pinning/pinJSONToIPFS",
         data: jsondata,
         headers: {
-          'pinata_api_key': PINATA_KEY,
-          'pinata_secret_api_key': PINATA_SECRET,
+          'pinata_api_key': process.env.PINATA_KEY,
+          'pinata_secret_api_key': process.env.PINATA_SECRET,
           'Content-Type': 'application/json'
         },
       });
 
-      const tokenURI = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+      const tokenURI = `${process.env.PINATA_GATEWAY}/ipfs/${resFile.data.IpfsHash}`;
 
       return tokenURI;
     } catch (error) {
