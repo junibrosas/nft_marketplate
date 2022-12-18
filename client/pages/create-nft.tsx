@@ -12,6 +12,8 @@ export default function CreateNFT() {
   const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' });
   const router = useRouter();
   const [loadingState, setLoadingState] = useState('not-loading');
+  console.log(PINATA_KEY);
+  console.log(PINATA_SECRET);
 
   // Upload image to IPFS
   async function imageUpload(e: any) {
