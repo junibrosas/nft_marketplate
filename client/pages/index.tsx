@@ -6,6 +6,7 @@ import axios from "axios";
 import { contractAddress } from '../config';
 import NFTMarketplace from '../abi/NFTMarketplace.json';
 import ProductList from "../components/ProductList";
+import Head from "next/head";
 
 export default function Home() {
   const [nfts, setNfts] = useState<any>([]);
@@ -63,6 +64,9 @@ export default function Home() {
 
   return (
     <div>
+      <Head>
+        <title>NFT Marketplate</title>
+      </Head>
       <ProductList products={nfts} onClickItem={buyNFT} />
     </div>
   )

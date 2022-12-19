@@ -6,6 +6,7 @@ import NFTMarketplace from "../abi/NFTMarketplace.json";
 import axios from "axios";
 import Image from "next/image";
 import ProductList from "../components/ProductList";
+import Head from "next/head";
 
 export default function CreatorDashboard() {
   const [nfts, setNfts] = useState<any>([]);
@@ -89,6 +90,9 @@ export default function CreatorDashboard() {
 
   return (
     <div>
+      <Head>
+        <title>Creator Dashboard | NFT Marketplate</title>
+      </Head>
       <ProductList products={nfts} labelCTABtn="Cancel Listing" onClickItem={(nft) => cancelListing(nft.tokenId)} />
     </div>
   );

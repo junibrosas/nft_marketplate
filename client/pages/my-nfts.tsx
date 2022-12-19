@@ -6,6 +6,7 @@ import axios from 'axios';
 import { contractAddress } from '../config';
 import NFTMarketplace from '../abi/NFTMarketplace.json';
 import ProductList from '../components/ProductList';
+import Head from 'next/head';
 
 function MyNFTs() {
   const [nfts, setNfts] = React.useState([]);
@@ -89,6 +90,9 @@ function MyNFTs() {
 
   return (
     <div>
+      <Head>
+        <title>My NFTs | NFT Marketplate</title>
+      </Head>
       <ProductList labelCTABtn="Resell NFT" products={nfts} onClickItem={(nft) => resellNFT(nft.tokenId, nft.price)} />
     </div>
   )
