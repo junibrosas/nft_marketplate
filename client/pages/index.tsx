@@ -2,42 +2,26 @@ import { ethers } from "ethers";
 import Web3Modal from 'web3modal';
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { contractAddress, INFURA_URL } from '../config';
+
+import { contractAddress } from '../config';
 import NFTMarketplace from '../abi/NFTMarketplace.json';
 import ProductList from "../components/ProductList";
 
 export default function Home() {
-  const [nfts, setNfts] = useState([]);
+  const [nfts, setNfts] = useState<any>([]);
   const [loadingState, setLoadingState] = useState('not-loaded');
 
   /**
    * Load all NFTs from the smart contract
    */
   async function loadNFTs() {
-    const provider = new ethers.providers.JsonRpcProvider(INFURA_URL);
-    const marketContract = new ethers.Contract(contractAddress, NFTMarketplace.abi, provider);
-    const data = await marketContract.fetchMarketItems(); // All unsold NFTs
-
-    const items: any = await Promise.all(data.map(async (i: any) => {
-      const tokenUri = await marketContract.tokenURI(i.tokenId);
-      const meta = await axios.get(tokenUri);
-      let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-
-      let item = {
-        price,
-        tokenId: i.tokenId.toNumber(),
-        seller: i.seller,
-        owner: i.owner,
-        name: meta.data.name,
-        image: meta.data.image,
-        description: meta.data.description
-      };
-
-      return item;
-    }));
-
-    setNfts(items);
-    setLoadingState('loaded');
+    try {
+      const response = await axios.get('http://localhost:3000/api/nfts');
+      setNfts(response.data);
+      setLoadingState('loaded');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {

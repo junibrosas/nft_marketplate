@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useRouter } from 'next/router';
 import Web3Modal from 'web3modal';
+import axios from 'axios';
 import { contractAddress } from '../config';
 
 import NFTMarketplace from '../abi/NFTMarketplace.json';
-import axios from 'axios';
+
 
 export default function CreateNFT() {
   const [fileUrl, setFileUrl] = useState<string>('');
