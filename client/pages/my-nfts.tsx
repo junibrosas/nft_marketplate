@@ -32,8 +32,14 @@ function MyNFTs() {
     const marketplaceContract = new ethers.Contract(contractAddress, NFTMarketplace.abi, signer);
     const data = await marketplaceContract.fetchMyNFTs();
     const items: any = await Promise.all(data.map(async (i: any) => {
+
       const tokenURI = await marketplaceContract.tokenURI(i.tokenId);
-      const meta = await axios.get(tokenURI);
+
+      const meta = await axios({
+        method: "get",
+        url: '/api/meta?uri=' + tokenURI
+      })
+
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
       let item = {
         price,
@@ -52,6 +58,27 @@ function MyNFTs() {
     setLoadingState('loaded');
   }
 
+  async function resellNFT(tokenId: any, tokenPrice: any) {
+    setLoadingState("not-loaded");
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const marketplaceContract = new ethers.Contract(
+      contractAddress,
+      NFTMarketplace.abi,
+      signer
+    );
+    const price = ethers.utils.parseUnits(tokenPrice, "ether");
+    let listingPrice = await marketplaceContract.getListingPrice();
+    listingPrice = listingPrice.toString();
+    const transaction = await marketplaceContract.resellToken(tokenId, price, {
+      value: listingPrice,
+    });
+    await transaction.wait();
+    loadNFTs();
+  }
+
   if (loadingState == 'not-loaded') return (
     <h1 className="text-3xl">Wait loading...</h1>
   )
@@ -62,7 +89,7 @@ function MyNFTs() {
 
   return (
     <div>
-      <ProductList products={nfts} onClickItem={() => null} />
+      <ProductList labelCTABtn="Resell NFT" products={nfts} onClickItem={(nft) => resellNFT(nft.tokenId, nft.price)} />
     </div>
   )
 }
