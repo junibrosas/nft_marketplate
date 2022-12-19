@@ -5,13 +5,17 @@ import { contractAddress } from "../config";
 import NFTMarketplace from "../abi/NFTMarketplace.json";
 import axios from "axios";
 import Image from "next/image";
+import ProductList from "../components/ProductList";
 
 export default function CreatorDashboard() {
   const [nfts, setNfts] = useState<any>([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
 
   useEffect(() => {
-    loadNFTs();
+    if (typeof window !== "undefined") {
+      loadNFTs();
+    }
+
   }, []);
 
   async function loadNFTs() {
@@ -32,10 +36,16 @@ export default function CreatorDashboard() {
       signer
     );
     const data = await marketplaceContract.fetchItemsListed();
+
     const items = await Promise.all(
       data.map(async (i: any) => {
         const tokenURI = await marketplaceContract.tokenURI(i.tokenId);
-        const meta = await axios.get(tokenURI);
+
+        const meta = await axios({
+          method: "get",
+          url: '/api/meta?uri=' + tokenURI
+        })
+
         let price = ethers.utils.formatUnits(i.price.toString(), "ether");
         let item = {
           price,
@@ -46,6 +56,7 @@ export default function CreatorDashboard() {
           name: meta.data.name,
           tokenURI,
         };
+
         return item;
       })
     );
@@ -77,46 +88,8 @@ export default function CreatorDashboard() {
     return <h1 className="text-3xl">No NFTs listed by you</h1>;
 
   return (
-    <div className="flex justify-center">
-      <div className="px-4" style={{ maxWidth: "1600px" }}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-4">
-          {nfts.map((nft: any, i: any) => (
-            <div
-              key={i}
-              className="border shadow rounded-xl overflow-hidden mx-5 my-5"
-            >
-              <Image
-                src={nft.image}
-                alt={nft.name}
-                width={400}
-                height={300}
-                placeholder="blur"
-                blurDataURL="/placeholder.png"
-                layout="responsive"
-              />
-              <div className="p-4">
-                <p
-                  style={{ height: "64px" }}
-                  className="text-2xl font-semibold"
-                >
-                  {nft.name}
-                </p>
-              </div>
-              <div className="p-4 bg-black">
-                <p className="text-2xl mb-4 font-bold text-white">
-                  {nft.price} ETH
-                </p>
-                <button
-                  className="w-full bg-red-500 text-white font-bold py-2 px-12 rounded"
-                  onClick={() => cancelListing(nft.tokenId)}
-                >
-                  Cancel Listing
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <div>
+      <ProductList products={nfts} labelCTABtn="Cancel Listing" onClickItem={(nft) => cancelListing(nft.tokenId)} />
     </div>
   );
 }

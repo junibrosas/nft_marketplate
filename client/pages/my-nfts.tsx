@@ -57,12 +57,12 @@ function MyNFTs() {
   )
 
   if (loadingState == 'loaded' && !nfts.length) return (
-    <h1 className="text-3xl">No items in marketplace</h1>
+    <h1 className="text-3xl">You have not owned any items yet</h1>
   )
 
   return (
     <div>
-      <ProductList products={nfts} onBuyNFT={() => null} />
+      <ProductList products={nfts} onClickItem={() => null} />
     </div>
   )
 }

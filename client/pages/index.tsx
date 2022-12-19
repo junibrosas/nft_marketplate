@@ -62,8 +62,8 @@ export default function Home() {
   }
 
   return (
-    <div className="flex justify-center">
-      <ProductList products={nfts} onBuyNFT={buyNFT} />
+    <div>
+      <ProductList products={nfts} onClickItem={buyNFT} />
     </div>
   )
 }

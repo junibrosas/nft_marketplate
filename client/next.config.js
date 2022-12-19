@@ -17,6 +17,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "gateway.pinata.cloud",
       },
+      {
+        protocol: "http",
+        hostname: "gateway.pinata.cloud",
+      },
     ],
   },
   env: {
@@ -28,7 +32,7 @@ const nextConfig = {
     return [
       {
         // matching all API routes
-        source: "/:path*",
+        source: "/api/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { key: "Access-Control-Allow-Origin", value: "*" },
