@@ -30,7 +30,11 @@ export default function ProductList({ products, onClickItem, labelCTABtn = 'Buy 
                 />
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-              <p className='text-gray-400'>{product.description}</p>
+              <p className='text-gray-400 text-ellipsis' style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
+              }}>{product.description}</p>
               <p className="mt-1 text-lg font-medium text-gray-900">ETH {product.price}</p>
               <button className='w-full bg-pink-500 text-white font-bold py-2 px-12 rounded' onClick={() => onClickItem(product)}>{labelCTABtn}</button>
             </a>
