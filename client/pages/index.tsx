@@ -16,7 +16,7 @@ export default function Home() {
    */
   async function loadNFTs() {
     try {
-      const response = await axios.get('http://localhost:3000/api/nfts');
+      const response = await axios.get('/api/nfts');
       setNfts(response.data);
       setLoadingState('loaded');
     } catch (error) {
