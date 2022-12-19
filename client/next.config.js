@@ -14,7 +14,7 @@ const nextConfig = {
         hostname: "images.unsplash.com",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "gateway.pinata.cloud",
       },
     ],
