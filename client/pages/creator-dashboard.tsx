@@ -4,7 +4,6 @@ import Web3Modal from "web3modal";
 import { contractAddress } from "../config";
 import NFTMarketplace from "../abi/NFTMarketplace.json";
 import axios from "axios";
-import Image from "next/image";
 import ProductList from "../components/ProductList";
 import Head from "next/head";
 
@@ -16,7 +15,6 @@ export default function CreatorDashboard() {
     if (typeof window !== "undefined") {
       loadNFTs();
     }
-
   }, []);
 
   async function loadNFTs() {

@@ -27,6 +27,8 @@ const nextConfig = {
     PINATA_KEY: process.env.PINATA_KEY,
     PINATA_SECRET: process.env.PINATA_SECRET,
     PINATA_GATEWAY: process.env.PINATA_GATEWAY,
+    CONTRACT_ADDRESS: process.env.CONTRACT_ADDRESS,
+    INFURA_URL: process.env.INFURA_URL,
   },
   async headers() {
     return [

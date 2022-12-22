@@ -45,6 +45,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const response = await loadNFTs();
-  res.status(200).json(response);
+  try {
+    const response = await loadNFTs();
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).end(error);
+  }
 }
